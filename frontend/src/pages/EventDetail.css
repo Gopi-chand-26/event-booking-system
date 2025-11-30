@@ -1,0 +1,190 @@
+.event-detail {
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+}
+
+.event-detail-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.event-image-section {
+  width: 100%;
+}
+
+.event-image-section img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.event-image-placeholder-large {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+.event-info-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.event-category {
+  color: #667eea;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.event-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.event-details {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.booking-section,
+.payment-section {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 5px;
+}
+
+.booking-section h2,
+.payment-section h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.ticket-selector {
+  margin-bottom: 1rem;
+}
+
+.ticket-selector label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.ticket-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ticket-controls button {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.ticket-controls button:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+}
+
+.ticket-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ticket-controls span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  min-width: 30px;
+  text-align: center;
+}
+
+.total-price {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: #667eea;
+}
+
+.book-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.book-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.book-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.payment-section p {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+@media (max-width: 968px) {
+  .event-detail-content {
+    grid-template-columns: 1fr;
+  }
+
+  .event-image-section img,
+  .event-image-placeholder-large {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .event-detail {
+    padding: 1rem;
+  }
+
+  .event-detail-content {
+    padding: 1rem;
+  }
+
+  .event-info-section h1 {
+    font-size: 2rem;
+  }
+}
+
