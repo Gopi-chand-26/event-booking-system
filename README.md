@@ -2,7 +2,7 @@
 
 A full-stack MERN (MongoDB, Express.js, React, Node.js) application for booking event tickets with secure PayPal payment integration, real-time notifications, and comprehensive admin management.
 
-## 📸 Screenshots
+## Screenshots
 
 ### Home Page
 
@@ -42,7 +42,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) application for booking 
 
 
 
-## 🚀 Features
+## Features
 
 - **User Authentication**: Secure registration and login with JWT tokens, password confirmation, and show/hide password toggle
 - **Event Browsing**: Browse and search events by category with real-time availability
@@ -55,7 +55,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) application for booking 
   - Event reminders for upcoming events (daily at 9 AM)
 - **Responsive Design**: Modern, mobile-friendly UI that works on all devices
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -92,7 +92,7 @@ Before you begin, ensure you have the following installed:
 ### Database
 - **MongoDB**: Latest (via MongoDB Atlas)
 
-## 📦 Installation & Setup
+## Installation & Setup
 
 ### Step 1: Clone the Repository
 
@@ -193,7 +193,7 @@ cd backend
 node scripts/createAdminUser.js
 ```
 
-## 🎯 Usage Guide
+## Usage Guide
 
 ### For Regular Users
 
@@ -221,7 +221,7 @@ node scripts/createAdminUser.js
 5. **Manage Bookings**: View all user bookings and their status
 6. **Test Email**: Use the test email endpoint to verify email configuration
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register new user
@@ -255,7 +255,7 @@ node scripts/createAdminUser.js
 ### Health Check
 - `GET /api/health` - Check server and database status
 
-## 🔐 Security Features
+## Security Features
 
 - JWT-based authentication
 - Password hashing with bcrypt
@@ -264,7 +264,7 @@ node scripts/createAdminUser.js
 - Secure payment processing
 - Environment variables for sensitive data
 
-## 📧 Email Configuration
+## Email Configuration
 
 The system sends three types of emails:
 
