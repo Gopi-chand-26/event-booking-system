@@ -16,7 +16,7 @@ const EventDetail = () => {
   const [booking, setBooking] = useState(null);
   const [showPayment, setShowPayment] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://event-booking-system-dwxq.onrender.com/api';
   const PAYPAL_CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID || 'AczBILvob5NjfUsWVjnqYucR3hp35xEH-sOYu0thsdsN6CSbQw5s5SAAFKEFVYCJS0enxJvAkXqfADK8';
 
   useEffect(() => {

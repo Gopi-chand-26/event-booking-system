@@ -331,6 +331,37 @@ The system sends three types of emails:
 - Check JWT token is being sent in request headers
 - Ensure `adminAuth` middleware is working (check backend logs)
 
+## Deployment
+
+### Backend Live URL
+
+The backend is deployed on Render:
+- **Backend API**: `https://event-booking-system-dwxq.onrender.com`
+- **Health Check**: `https://event-booking-system-dwxq.onrender.com/api/health`
+
+### Frontend Configuration for Production
+
+To connect the frontend to the live backend, set the following environment variable:
+
+**In `frontend/.env`:**
+```env
+REACT_APP_API_URL=https://event-booking-system-dwxq.onrender.com/api
+REACT_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
+```
+
+**Note**: For local development, use `http://localhost:5000/api`. For production, use the live backend URL above.
+
+### Deploying Frontend
+
+1. Build the frontend:
+   ```bash
+   cd frontend
+   npm run build
+   ```
+
+2. Deploy the `build` folder to your hosting service (Vercel, Netlify, etc.)
+
+3. Ensure environment variables are set in your hosting platform's dashboard
 
 ## Project Structure
 
