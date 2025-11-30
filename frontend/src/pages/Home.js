@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
@@ -9,11 +9,7 @@ const Home = () => {
 
   const API_URL = process.env.REACT_APP_API_URL || 'https://event-booking-system-dwxq.onrender.com/api';
 
-  useEffect(() => {
-    fetchFeaturedEvents();
-  }, []);
-
-  const fetchFeaturedEvents = async () => {
+  const fetchFeaturedEvents = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/events?status=active`);
       const allEvents = response.data;
@@ -24,7 +20,11 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
+
+  useEffect(() => {
+    fetchFeaturedEvents();
+  }, [fetchFeaturedEvents]);
 
   return (
     <div className="home">

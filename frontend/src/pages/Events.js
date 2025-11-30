@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Events.css';
@@ -11,11 +11,7 @@ const Events = () => {
 
   const API_URL = process.env.REACT_APP_API_URL || 'https://event-booking-system-dwxq.onrender.com/api';
 
-  useEffect(() => {
-    fetchEvents();
-  }, [categoryFilter, searchTerm]);
-
-  const fetchEvents = async () => {
+  const fetchEvents = useCallback(async () => {
     try {
       setLoading(true);
       const params = { status: 'active' };
@@ -29,7 +25,11 @@ const Events = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL, categoryFilter, searchTerm]);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   const categories = ['all', 'concert', 'conference', 'workshop', 'sports', 'theater', 'other'];
 

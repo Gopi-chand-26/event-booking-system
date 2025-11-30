@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -19,11 +19,7 @@ const EventDetail = () => {
   const API_URL = process.env.REACT_APP_API_URL || 'https://event-booking-system-dwxq.onrender.com/api';
   const PAYPAL_CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID || 'AczBILvob5NjfUsWVjnqYucR3hp35xEH-sOYu0thsdsN6CSbQw5s5SAAFKEFVYCJS0enxJvAkXqfADK8';
 
-  useEffect(() => {
-    fetchEvent();
-  }, [id]);
-
-  const fetchEvent = async () => {
+  const fetchEvent = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/events/${id}`);
       setEvent(response.data);
@@ -34,7 +30,11 @@ const EventDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL, id, navigate]);
+
+  useEffect(() => {
+    fetchEvent();
+  }, [fetchEvent]);
 
   const handleBookNow = async () => {
     if (!user) {

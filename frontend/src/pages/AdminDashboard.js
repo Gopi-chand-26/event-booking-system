@@ -88,19 +88,16 @@ const AdminDashboard = () => {
       } catch (err) {
         console.error('Bookings error:', err.response?.data || err.message);
         if (err.response?.status === 401 || err.response?.status === 403) {
-          // Don't show error if we already showed one for stats
-          if (!stats) {
-            toast.error('Admin access required for bookings.');
-          }
+          toast.error('Admin access required for bookings.');
         }
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      toast.error('Failed to load dashboard data. Check backend connection.');
-    } finally {
-      setLoading(false);
-    }
-  }, [API_URL]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        toast.error('Failed to load dashboard data. Check backend connection.');
+      } finally {
+        setLoading(false);
+      }
+    }, [API_URL]);
 
   useEffect(() => {
     fetchData();

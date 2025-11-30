@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -12,13 +12,7 @@ const Dashboard = () => {
 
   const API_URL = process.env.REACT_APP_API_URL || 'https://event-booking-system-dwxq.onrender.com/api';
 
-  useEffect(() => {
-    if (user) {
-      fetchBookings();
-    }
-  }, [user]);
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/bookings`);
       setBookings(response.data);
@@ -27,7 +21,13 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
+
+  useEffect(() => {
+    if (user) {
+      fetchBookings();
+    }
+  }, [user, fetchBookings]);
 
   if (loading) {
     return <div className="loading">Loading your bookings...</div>;
