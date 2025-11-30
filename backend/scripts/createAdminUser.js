@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 require('dotenv').config();
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://bodapatigopichand6_db_user:AtJPG5vsMZHSf8sm@databasecluster.mmmdmsl.mongodb.net/eventbooking?appName=databasecluster';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
