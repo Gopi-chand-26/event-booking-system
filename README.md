@@ -40,6 +40,10 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) application for booking 
 
 <img src="https://image2url.com/images/1764481143238-275dcc62-6c56-457c-ba23-a6abc7061dbb.png" alt="admin-create-event-page" width="800" style="max-width: 100%; height: auto;" />
 
+### email notification about event
+
+<img src="https://image2url.com/images/1764509973624-db781469-d8f1-4352-ba4c-b5190409ea56.jpg" alt="email-to-user" width="800" style="max-width: 100%; height: auto;" />
+
 
 
 ## Features
