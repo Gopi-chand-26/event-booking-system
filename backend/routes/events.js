@@ -91,6 +91,31 @@ router.post('/', adminAuth, async (req, res) => {
       return res.status(400).json({ message: 'Total tickets must be a valid number greater than 0' });
     }
 
+    // Check for venue conflict: same venue, date, and time (case-insensitive)
+    const eventDate = new Date(date);
+    const dateStart = new Date(eventDate);
+    dateStart.setHours(0, 0, 0, 0);
+    const dateEnd = new Date(eventDate);
+    dateEnd.setHours(23, 59, 59, 999);
+
+    const conflictingEvent = await Event.findOne({
+      'venue.name': { $regex: new RegExp(`^${venue.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
+      'venue.address': { $regex: new RegExp(`^${venue.address.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
+      'venue.city': { $regex: new RegExp(`^${venue.city.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
+      date: {
+        $gte: dateStart,
+        $lt: dateEnd
+      },
+      time: time,
+      status: { $ne: 'cancelled' } // Don't consider cancelled events
+    });
+
+    if (conflictingEvent) {
+      return res.status(400).json({ 
+        message: `Venue "${venue.name}" is already booked on ${date} at ${time}. Please choose a different date, time, or venue.` 
+      });
+    }
+
     const eventData = {
       title,
       description,
@@ -137,13 +162,69 @@ router.put('/:id', adminAuth, async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
+    // Check for venue conflict if venue, date, or time is being updated
+    if (req.body.venue || req.body.date || req.body.time) {
+      const venueName = req.body.venue?.name || event.venue.name;
+      const venueAddress = req.body.venue?.address || event.venue.address;
+      const venueCity = req.body.venue?.city || event.venue.city;
+      const eventDate = req.body.date ? new Date(req.body.date) : event.date;
+      const eventTime = req.body.time || event.time;
+
+      const dateStart = new Date(eventDate);
+      dateStart.setHours(0, 0, 0, 0);
+      const dateEnd = new Date(eventDate);
+      dateEnd.setHours(23, 59, 59, 999);
+
+      const conflictingEvent = await Event.findOne({
+        _id: { $ne: req.params.id }, // Exclude current event
+        'venue.name': { $regex: new RegExp(`^${venueName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
+        'venue.address': { $regex: new RegExp(`^${venueAddress.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
+        'venue.city': { $regex: new RegExp(`^${venueCity.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
+        date: {
+          $gte: dateStart,
+          $lt: dateEnd
+        },
+        time: eventTime,
+        status: { $ne: 'cancelled' } // Don't consider cancelled events
+      });
+
+      if (conflictingEvent) {
+        return res.status(400).json({ 
+          message: `Venue "${venueName}" is already booked on ${eventDate.toISOString().split('T')[0]} at ${eventTime}. Please choose a different date, time, or venue.` 
+        });
+      }
+    }
+
     // Update available tickets if total tickets changed
     if (req.body.totalTickets && req.body.totalTickets !== event.totalTickets) {
       const difference = req.body.totalTickets - event.totalTickets;
       req.body.availableTickets = Math.max(0, event.availableTickets + difference);
     }
 
-    Object.assign(event, req.body);
+    // Update venue if provided
+    if (req.body.venue) {
+      event.venue = {
+        name: req.body.venue.name || event.venue.name,
+        address: req.body.venue.address || event.venue.address,
+        city: req.body.venue.city || event.venue.city
+      };
+    }
+
+    // Update date if provided
+    if (req.body.date) {
+      event.date = new Date(req.body.date);
+    }
+
+    // Update other fields
+    if (req.body.title) event.title = req.body.title;
+    if (req.body.description) event.description = req.body.description;
+    if (req.body.category) event.category = req.body.category;
+    if (req.body.time) event.time = req.body.time;
+    if (req.body.price !== undefined) event.price = parseFloat(req.body.price);
+    if (req.body.totalTickets !== undefined) event.totalTickets = parseInt(req.body.totalTickets);
+    if (req.body.status) event.status = req.body.status;
+    if (req.body.image !== undefined) event.image = req.body.image;
+
     await event.save();
 
     const updatedEvent = await Event.findById(event._id)
