@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'https://event-booking-system-dwxq.onrender.com/api';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
   const fetchBookings = useCallback(async () => {
     try {
@@ -45,13 +45,24 @@ const Dashboard = () => {
             <div className="bookings-list">
               {bookings.map(booking => (
                 <div key={booking._id} className="booking-card">
-                  <div className="booking-header">
-                    <h3>{booking.event?.title}</h3>
-                    <span className={`status-badge ${booking.paymentStatus}`}>
-                      {booking.paymentStatus}
-                    </span>
-                  </div>
-                  <div className="booking-details">
+                  <div className="booking-content">
+                    <div className="booking-image">
+                      {booking.event?.image ? (
+                        <img src={booking.event.image} alt={booking.event?.title} />
+                      ) : (
+                        <div className="booking-image-placeholder">
+                          {booking.event?.category?.charAt(0).toUpperCase() || 'E'}
+                        </div>
+                      )}
+                    </div>
+                    <div className="booking-info">
+                      <div className="booking-header">
+                        <h3>{booking.event?.title}</h3>
+                        <span className={`status-badge ${booking.paymentStatus}`}>
+                          {booking.paymentStatus}
+                        </span>
+                      </div>
+                      <div className="booking-details">
                     <p><strong>Date:</strong> {format(new Date(booking.event?.date), 'MMM dd, yyyy')}</p>
                     <p><strong>Time:</strong> {booking.event?.time}</p>
                     <p><strong>Venue:</strong> {booking.event?.venue?.name}</p>
@@ -59,12 +70,14 @@ const Dashboard = () => {
                     <p><strong>Total Amount:</strong> ${booking.totalAmount.toFixed(2)}</p>
                     <p><strong>Booking Date:</strong> {format(new Date(booking.createdAt), 'MMM dd, yyyy')}</p>
                     <p><strong>Booking Time:</strong> {format(new Date(booking.createdAt), 'hh:mm a')}</p>
+                      </div>
+                      {booking.paymentStatus === 'completed' && (
+                        <Link to={`/events/${booking.event?._id}`} className="view-event-btn">
+                          View Event
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                  {booking.paymentStatus === 'completed' && (
-                    <Link to={`/events/${booking.event?._id}`} className="view-event-btn">
-                      View Event
-                    </Link>
-                  )}
                 </div>
               ))}
             </div>
