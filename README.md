@@ -221,7 +221,7 @@ node scripts/createAdminUser.js
 5. **Manage Bookings**: View all user bookings and their status
 6. **Test Email**: Use the test email endpoint to verify email configuration
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register new user
