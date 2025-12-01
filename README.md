@@ -44,6 +44,14 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) application for booking 
 
 <img src="https://image2url.com/images/1764509973624-db781469-d8f1-4352-ba4c-b5190409ea56.jpg" alt="email-to-user" width="800" style="max-width: 100%; height: auto;" />
 
+### Temporary forgot password functionality
+
+<img src="https://image2url.com/images/1764569982034-75f365d1-139d-4bf9-904e-03fe6d0d0f36.png" alt="forgot-password-page" width="800" style="max-width: 100%; height: auto;" />
+
+### User Profile page
+
+<img src="https://image2url.com/images/1764569933285-18b8e603-543e-44e2-9f9d-406234e4e011.png" alt="forgot-password-page" width="800" style="max-width: 100%; height: auto;" />
+
 
 
 ## Features
@@ -397,7 +405,6 @@ REACT_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
 
 - Two-factor authentication (2FA) for enhanced security
 - Social media login integration (Google, Facebook)
-- User profile management with avatar uploads
 - Event reviews and ratings system
 - Email preferences and notification settings
 - Booking cancellation and refund management
