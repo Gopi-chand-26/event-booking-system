@@ -58,9 +58,21 @@ const Dashboard = () => {
                     <div className="booking-info">
                       <div className="booking-header">
                         <h3>{booking.event?.title}</h3>
-                        <span className={`status-badge ${booking.paymentStatus}`}>
-                          {booking.paymentStatus}
-                        </span>
+                        <div className="booking-header-right">
+                          <span className={`status-badge ${booking.paymentStatus}`}>
+                            {booking.paymentStatus}
+                          </span>
+                          {booking.paymentStatus === 'pending' && (
+                            <Link to={`/events/${booking.event?._id}`} className="pay-now-btn">
+                              Pay Now
+                            </Link>
+                          )}
+                          {booking.paymentStatus === 'completed' && (
+                            <Link to={`/events/${booking.event?._id}`} className="view-event-btn">
+                              View Event
+                            </Link>
+                          )}
+                        </div>
                       </div>
                       <div className="booking-details">
                     <p><strong>Date:</strong> {format(new Date(booking.event?.date), 'MMM dd, yyyy')}</p>
@@ -71,11 +83,6 @@ const Dashboard = () => {
                     <p><strong>Booking Date:</strong> {format(new Date(booking.createdAt), 'MMM dd, yyyy')}</p>
                     <p><strong>Booking Time:</strong> {format(new Date(booking.createdAt), 'hh:mm a')}</p>
                       </div>
-                      {booking.paymentStatus === 'completed' && (
-                        <Link to={`/events/${booking.event?._id}`} className="view-event-btn">
-                          View Event
-                        </Link>
-                      )}
                     </div>
                   </div>
                 </div>

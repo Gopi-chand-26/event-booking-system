@@ -82,6 +82,15 @@
   color: #333;
 }
 
+.booking-info {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #e7f3ff;
+  border-radius: 5px;
+}
+
 .ticket-selector {
   margin-bottom: 1rem;
 }

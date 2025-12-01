@@ -32,9 +32,43 @@ const EventDetail = () => {
     }
   }, [API_URL, id, navigate]);
 
+  const checkExistingBooking = useCallback(async () => {
+    if (!user || !event) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${API_URL}/bookings`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      // Find pending booking for this event
+      const pendingBooking = response.data.find(
+        b => b.event?._id === event._id && b.paymentStatus === 'pending'
+      );
+
+      if (pendingBooking) {
+        setBooking(pendingBooking);
+        setTickets(pendingBooking.tickets);
+        setShowPayment(true);
+        toast.info('You have a pending booking. Please complete payment.');
+      }
+    } catch (error) {
+      console.error('Error checking existing booking:', error);
+      // Don't show error to user, just continue with normal flow
+    }
+  }, [user, event, API_URL]);
+
   useEffect(() => {
     fetchEvent();
   }, [fetchEvent]);
+
+  useEffect(() => {
+    if (event && user) {
+      checkExistingBooking();
+    }
+  }, [event, user, checkExistingBooking]);
 
   const handleBookNow = async () => {
     if (!user) {
@@ -147,11 +181,18 @@ const EventDetail = () => {
             ) : (
               <div className="payment-section">
                 <h2>Complete Payment</h2>
-                <p>Total Amount: ${totalPrice.toFixed(2)}</p>
+                <p>Total Amount: ${booking ? booking.totalAmount.toFixed(2) : totalPrice.toFixed(2)}</p>
+                {booking && (
+                  <p className="booking-info">Booking for {booking.tickets} ticket{booking.tickets > 1 ? 's' : ''}</p>
+                )}
                 <PayPalScriptProvider options={{ clientId: PAYPAL_CLIENT_ID, currency: 'USD' }}>
                   <PayPalButtons
                     createOrder={async (data, actions) => {
                       try {
+                        if (!booking) {
+                          toast.error('Booking not found. Please try booking again.');
+                          throw new Error('Booking not found');
+                        }
                         const token = localStorage.getItem('token');
                         const response = await axios.post(`${API_URL}/payments/create`, {
                           bookingId: booking._id
