@@ -17,7 +17,7 @@ const EventDetail = () => {
   const [showPayment, setShowPayment] = useState(false);
 
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-  const PAYPAL_CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID || 'AczBILvob5NjfUsWVjnqYucR3hp35xEH-sOYu0thsdsN6CSbQw5s5SAAFKEFVYCJS0enxJvAkXqfADK8';
+  const PAYPAL_CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
   const fetchEvent = useCallback(async () => {
     try {
