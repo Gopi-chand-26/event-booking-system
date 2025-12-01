@@ -47,7 +47,9 @@ router.post('/register', [
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role
+        role: user.role,
+        phone: user.phone,
+        avatar: user.avatar
       }
     });
   } catch (error) {
@@ -91,7 +93,9 @@ router.post('/login', [
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role
+        role: user.role,
+        phone: user.phone,
+        avatar: user.avatar
       }
     });
   } catch (error) {
@@ -138,7 +142,8 @@ router.get('/me', auth, async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        phone: user.phone
+        phone: user.phone,
+        avatar: user.avatar
       }
     });
   } catch (error) {
@@ -161,6 +166,50 @@ router.get('/check-admin', auth, async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// @route   PUT /api/auth/profile
+// @desc    Update user profile
+// @access  Private
+router.put('/profile', auth, [
+  body('name').optional().trim().notEmpty().withMessage('Name cannot be empty'),
+  body('phone').optional().trim(),
+  body('avatar').optional().trim()
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, phone, avatar } = req.body;
+    const updateFields = {};
+
+    if (name) updateFields.name = name;
+    if (phone !== undefined) updateFields.phone = phone;
+    if (avatar !== undefined) updateFields.avatar = avatar;
+
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: updateFields },
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    res.json({
+      message: 'Profile updated successfully',
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        phone: user.phone,
+        avatar: user.avatar
+      }
+    });
+  } catch (error) {
+    console.error('Profile update error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });

@@ -49,6 +49,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) application for booking 
 ## Features
 
 - **User Authentication**: Secure registration and login with JWT tokens, password confirmation, and show/hide password toggle
+- **Forgot Password**: Dedicated forgot password page with contact information for password recovery assistance
 - **Event Browsing**: Browse and search events by category with real-time availability
 - **Booking System**: Book tickets with real-time availability checks and booking confirmation
 - **PayPal Integration**: Secure payment processing with PayPal SDK
@@ -215,14 +216,15 @@ node scripts/createAdminUser.js
 
 1. **Register**: Create a new account with email, password, and optional phone number
 2. **Login**: Access your account with email and password
-3. **Browse Events**: View all available events on the home page or events page
-4. **View Event Details**: Click on any event to see full details
-5. **Book Tickets**: 
+3. **Forgot Password**: If you forget your password, click "Forgot Password?" on the login page to view contact information for password recovery assistance
+4. **Browse Events**: View all available events on the home page or events page
+5. **View Event Details**: Click on any event to see full details
+6. **Book Tickets**: 
    - Select number of tickets
    - Click "Book Now"
    - Complete payment via PayPal
    - Receive booking confirmation email
-6. **View Bookings**: Check your dashboard to see all your bookings
+7. **View Bookings**: Check your dashboard to see all your bookings
 
 ### For Admin Users
 
@@ -379,6 +381,27 @@ REACT_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
 2. Deploy the `build` folder to your hosting service (Vercel, Netlify, etc.)
 
 3. Ensure environment variables are set in your hosting platform's dashboard
+
+## Future Work
+
+### Planned Features
+
+- **OTP-Based Password Reset**: 
+  - Implement email-based OTP (One-Time Password) verification for forgot password functionality
+  - Users will receive a 6-digit OTP code via email
+  - OTP will expire after 10 minutes for security
+  - Users can reset their password after successful OTP verification
+  - This will replace the current manual contact-based password recovery system
+
+### Additional Enhancements (Under Consideration)
+
+- Two-factor authentication (2FA) for enhanced security
+- Social media login integration (Google, Facebook)
+- User profile management with avatar uploads
+- Event reviews and ratings system
+- Email preferences and notification settings
+- Booking cancellation and refund management
+- Dark mode theme
 
 ## Project Structure
 

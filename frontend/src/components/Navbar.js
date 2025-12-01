@@ -28,7 +28,16 @@ const Navbar = () => {
                 <li><Link to="/admin">Admin</Link></li>
               )}
               <li className="navbar-user">
-                <span>Hello, {user.name}</span>
+                <Link to="/profile" className="profile-link">
+                  {user.avatar ? (
+                    <img src={user.avatar} alt={user.name} className="navbar-avatar" />
+                  ) : (
+                    <div className="navbar-avatar-placeholder">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <span>{user.name}</span>
+                </Link>
                 <button onClick={handleLogout} className="logout-btn">Logout</button>
               </li>
             </>

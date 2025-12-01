@@ -69,6 +69,40 @@
   gap: 1rem;
 }
 
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.profile-link:hover {
+  opacity: 0.8;
+}
+
+.navbar-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.navbar-avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 2px solid white;
+  font-size: 1rem;
+}
+
 .logout-btn {
   background: rgba(255, 255, 255, 0.2);
   color: white;
