@@ -58,7 +58,12 @@ const Login = () => {
             />
           </div>
           <div className="form-group">
-            <label>Password</label>
+            <div className="password-label-wrapper">
+              <label>Password</label>
+              <Link to="/forgot-password" className="forgot-password-link">
+                Forgot Password?
+              </Link>
+            </div>
             <div className="password-input-wrapper">
               <input
                 type={showPassword ? "text" : "password"}

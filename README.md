@@ -18,7 +18,7 @@ A full-stack MERN (MongoDB, Express.js, React, Node.js) application for booking 
 
 ### User Dashboard
 
-<img src="https://image2url.com/images/1764480798742-27de88e1-00fe-4de9-9357-54e27b6164a6.png" alt="user-dashboard" width="800" style="max-width: 100%; height: auto;" />
+<img src="https://image2url.com/images/1764563655880-c67545a2-3b1a-4b3e-9d0e-305863b00b52.png" alt="user-dashboard" width="800" style="max-width: 100%; height: auto;" />
 
 ### Events Page
 
@@ -107,6 +107,8 @@ cd event-booking-system
 
 ### Step 2: Backend Setup
 
+**Note**: You can skip this step if you want to use the deployed backend at `https://event-booking-system-dwxq.onrender.com`. However, for full control and development, it's recommended to run the backend locally.
+
 1. **Navigate to backend directory:**
    ```bash
    cd backend
@@ -146,7 +148,7 @@ cd event-booking-system
    npm start
    
    # Development mode (with auto-reload)
-   npm run dev
+   npm start
    ```
 
    The backend will run on `http://localhost:5000`
@@ -168,11 +170,21 @@ cd event-booking-system
    npm install
    ```
 
-3. **Create `.env` file** in the `frontend` directory (optional):
+3. **Create `.env` file** in the `frontend` directory:
+   
+   **Option A: Use Local Backend (if running backend locally)**
    ```env
    REACT_APP_API_URL=http://localhost:5000/api
    REACT_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
    ```
+   
+   **Option B: Use Deployed Backend (recommended for quick setup)**
+   ```env
+   REACT_APP_API_URL=https://event-booking-system-dwxq.onrender.com/api
+   REACT_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
+   ```
+   
+   **Note**: If you don't create a `.env` file, the frontend will default to `http://localhost:5000/api`. To use the deployed backend without running the backend locally, you must create the `.env` file with the deployed URL.
 
 4. **Start the frontend development server:**
    ```bash
@@ -339,9 +351,12 @@ The backend is deployed on Render:
 - **Backend API**: `https://event-booking-system-dwxq.onrender.com`
 - **Health Check**: `https://event-booking-system-dwxq.onrender.com/api/health`
 
-### Frontend Configuration for Production
+### Using Deployed Backend for Local Frontend Development
 
-To connect the frontend to the live backend, set the following environment variable:
+You can use the deployed backend for local frontend development without running the backend locally. This is useful for:
+- Quick setup and testing
+- Frontend-only development
+- Testing with live data
 
 **In `frontend/.env`:**
 ```env
@@ -349,7 +364,9 @@ REACT_APP_API_URL=https://event-booking-system-dwxq.onrender.com/api
 REACT_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
 ```
 
-**Note**: For local development, use `http://localhost:5000/api`. For production, use the live backend URL above.
+**Note**: 
+- For local backend development, use `http://localhost:5000/api`
+- For production frontend deployment, use `https://event-booking-system-dwxq.onrender.com/api`
 
 ### Deploying Frontend
 

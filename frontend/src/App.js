@@ -9,6 +9,7 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import './App.css';
@@ -56,6 +57,7 @@ function App() {
               <Route path="/events/:id" element={<EventDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route 
                 path="/dashboard" 
                 element={
